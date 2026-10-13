@@ -1,0 +1,44 @@
+nav { display: flex; align-items: center; gap: 12px; background: #2e7d32; color: #fff; padding: 10px 16px; flex-wrap: wrap; }
+nav .links { display: flex; gap: 14px; flex: 1; }
+nav a { color: #fff; text-decoration: none; font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 16px; }
+.card { background: #fff; border-radius: 14px; padding: 14px; margin: 12px 0; box-shadow: 0 2px 6px #0002; }
+.row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+input, select { width: 100%; padding: 12px; font-size: 18px; border: 2px solid #a5d6a7; border-radius: 10px; margin: 6px 0; }
+nav select { width: auto; margin: 0; padding: 6px; }
+button { background: #2e7d32; color: #fff; border: 0; border-radius: 12px; padding: 12px 18px; font-size: 18px; cursor: pointer; }
+button.small { padding: 6px 12px; font-size: 15px; }
+button.red { background: #c62828; }
+button.blue { background: #1565c0; }
+button.big { width: 100%; padding: 26px; font-size: 24px; margin: 8px 0; }
+.mic { background: #f9a825; font-size: 28px; border-radius: 50%; width: 64px; height: 64px; padding: 0; }
+.mic.on { background: #c62828; }
+.badge { padding: 4px 10px; border-radius: 20px; font-size: 14px; color: #fff; background: #757575; }
+.badge.PLACED { background: #f9a825; } .badge.ACCEPTED { background: #1565c0; }
+.badge.PICKED_UP { background: #6a1b9a; } .badge.DELIVERED { background: #2e7d32; } .badge.REJECTED { background: #c62828; }
+.track { display: flex; gap: 4px; margin: 8px 0; }
+.track span { flex: 1; text-align: center; font-size: 12px; padding: 6px 2px; background: #e0e0e0; border-radius: 6px; }
+.track span.done { background: #66bb6a; color: #fff; }
+.stat { text-align: center; } .stat h2 { margin: 4px 0; color: #2e7d32; }
+.bars { display: flex; align-items: flex-end; gap: 8px; height: 130px; }
+.bars div { flex: 1; text-align: center; font-size: 12px; }
+.bars i { display: block; background: #66bb6a; border-radius: 6px 6px 0 0; }
+.crop-img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; }
+.step-icon { font-size: 70px; text-align: center; }
+.tabs { display: flex; gap: 8px; }
+.pw-wrap { position: relative; }
+.pw-wrap input { width: 100%; padding-right: 48px; box-sizing: border-box; }
+.pw-wrap .eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  width: auto;
+  margin: 0;
+}
