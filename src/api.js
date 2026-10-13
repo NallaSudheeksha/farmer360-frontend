@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const BASE = "http://localhost:8080";
+export const BASE = "https://farmer360-backend.onrender.com";
 const api = axios.create({ baseURL: BASE + "/api" });
 
 api.interceptors.request.use((c) => {
