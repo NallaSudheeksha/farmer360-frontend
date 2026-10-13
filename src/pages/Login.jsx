@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -12,9 +13,6 @@ export default function Login() {
   const [err, setErr] = useState("");
   const [info, setInfo] = useState("");
   const [show, setShow] = useState(false);
-  const [forgot, setForgot] = useState(false);
-  const [step, setStep] = useState(1);
-  const [otp, setOtp] = useState("");
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
 
   const errorText = (e) => {
@@ -38,33 +36,9 @@ export default function Login() {
     }
   };
 
-  const sendOtp = async () => {
-    setErr(""); setInfo("");
-    try {
-      await api.post("/auth/forgot-password", { phone: f.phone });
-      setStep(2);
-      setInfo("OTP sent. (Demo: look for it in the Eclipse Console.)");
-    } catch (e) {
-      setErr(errorText(e));
-    }
-  };
-
-  const resetPassword = async () => {
-    setErr(""); setInfo("");
-    try {
-      await api.post("/auth/reset-password", { phone: f.phone, otp, newPassword: f.password });
-      setForgot(false); setStep(1); setOtp(""); setReg(false);
-      setF({ ...f, password: "" });
-      setInfo("Password changed. Please login.");
-    } catch (e) {
-      setErr(errorText(e));
-    }
-  };
-
   const phoneInput = (
     <input placeholder={t("phone10")} inputMode="numeric" maxLength={10} value={f.phone}
-           onChange={(e) => setF({ ...f, phone: e.target.value.replace(/\D/g, "") })}
-           disabled={forgot && step === 2} />
+           onChange={(e) => setF({ ...f, phone: e.target.value.replace(/\D/g, "") })} />
   );
 
   const passwordInput = (placeholder, onEnter) => (
@@ -78,30 +52,6 @@ export default function Login() {
       </button>
     </div>
   );
-
-  if (forgot) {
-    return (
-      <main>
-        <div className="card login">
-          <a href="#" className="back" onClick={(e) => { e.preventDefault(); setForgot(false); setStep(1); setErr(""); setInfo(""); }}>
-            ← Back to login
-          </a>
-          <h1>🔑 Reset password</h1>
-          {phoneInput}
-          {step === 2 && (<>
-            <input placeholder="6-digit OTP" inputMode="numeric" maxLength={6} value={otp}
-                   onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))} />
-            {passwordInput("New password (min 6)", resetPassword)}
-          </>)}
-          {info && <p style={{ color: "#2e7d32" }}>{info}</p>}
-          {err && <p className="bad">{err}</p>}
-          {step === 1
-            ? <button className="big" onClick={sendOtp}>Send OTP</button>
-            : <button className="big" onClick={resetPassword}>Change password</button>}
-        </div>
-      </main>
-    );
-  }
 
   return (
     <main>
@@ -123,11 +73,6 @@ export default function Login() {
         {info && <p style={{ color: "#2e7d32" }}>{info}</p>}
         {err && <p className="bad">{err}</p>}
         <button className="big" onClick={submit}>{reg ? t("register") : t("login")}</button>
-        {!reg && (
-          <a href="#" onClick={(e) => { e.preventDefault(); setForgot(true); setStep(1); setErr(""); setInfo(""); }}>
-            Forgot password?
-          </a>
-        )}
         <a href="#" onClick={(e) => { e.preventDefault(); setReg(!reg); setErr(""); setInfo(""); }}>
           {reg ? t("haveAccount") : t("newUser")}
         </a>

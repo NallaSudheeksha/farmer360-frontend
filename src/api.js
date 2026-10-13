@@ -1,25 +1,15 @@
 import axios from "axios";
+import { API_URL, BASE_URL } from "./config";
 
-export const BASE = "http://localhost:8080";
-const api = axios.create({ baseURL: BASE + "/api" });
+// Paata code (MyCrops.jsx etc.) "BASE" import chestundi, so daanini keep chestunnam
+export const BASE = BASE_URL;
 
-api.interceptors.request.use((c) => {
-  const t = localStorage.getItem("token");
-  if (t) c.headers.Authorization = `Bearer ${t}`;
-  return c;
+const api = axios.create({ baseURL: API_URL });
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
 });
-
-// expired / invalid login -> send the user back to the login page
-api.interceptors.response.use(
-  (r) => r,
-  (err) => {
-    const url = err.config?.url || "";
-    if (err.response?.status === 401 && !url.startsWith("/auth")) {
-      ["token", "role", "name"].forEach((k) => localStorage.removeItem(k));
-      window.location.href = "/login";
-    }
-    return Promise.reject(err);
-  }
-);
 
 export default api;
