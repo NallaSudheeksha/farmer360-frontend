@@ -6,7 +6,10 @@ const DEFAULT_API = isLocal
   ? "http://localhost:8080/api"
   : "https://farmer360-backend.onrender.com/api";
 
-export const API_URL = (import.meta.env.VITE_API_URL || DEFAULT_API).replace(/\/+$/, "");
+const raw = (import.meta.env.VITE_API_URL || DEFAULT_API).replace(/\/+$/, "");
+
+// /api lekapoyina automatic ga add chestundi
+export const API_URL = raw.endsWith("/api") ? raw : raw + "/api";
 export const BASE_URL = API_URL.replace(/\/api$/, "");
 
 export const img = (path) => {
